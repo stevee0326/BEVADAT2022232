@@ -1,13 +1,30 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[27]:
 
 
 import numpy as np
 
 
 # In[ ]:
+
+
+#create_array((2,2))
+# a = set_one(create_array((2,2)))
+# b = do_transpose(a)
+
+# a4 = np.array([0.1223, 0.1675])
+# round_array(a4)
+# a5 = np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])
+# bool_array(a5)
+# a6 = np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])
+# invert_bool_array(a6)
+# a7 = np.array([[1,2], [3,4]])
+# flatten(a7)
+
+
+# In[29]:
 
 
 #Készíts egy függvényt ami létre hoz egy nullákkal teli numpy array-t.
@@ -17,21 +34,15 @@ import numpy as np
 #create_array()
 
 
-# In[7]:
+# In[30]:
 
 
-#create_array((2,2))
-
-
-# In[6]:
-
-
-def create_array(tp) -> np.array:
+def create_array(tp : np.array) -> np.array:
     return np.zeros(tp)
     
 
 
-# In[ ]:
+# In[31]:
 
 
 #Készíts egy függvényt ami a paraméterként kapott array-t főátlóját feltölti egyesekkel
@@ -40,15 +51,15 @@ def create_array(tp) -> np.array:
 #set_one()
 
 
-# In[ ]:
+# In[32]:
 
 
-def set_one(input_array: np.array)-> np.array:
+def set_one(input_array : np.array)-> np.array:
     np.fill_diagonal(input_array,1)
     return input_array
 
 
-# In[ ]:
+# In[33]:
 
 
 # Készíts egy függvényt ami transzponálja a paraméterül kapott mártix-ot:
@@ -57,14 +68,14 @@ def set_one(input_array: np.array)-> np.array:
 # do_transpose()
 
 
-# In[ ]:
+# In[34]:
 
 
 def do_transpose(input_array: np.array)->np.array:
     return np.transpose(input_array)
 
 
-# In[ ]:
+# In[35]:
 
 
 # Készíts egy olyan függvényt ami az array-ben lévő értékeket N tizenedjegyik kerekíti, ha nincs megadva ez a paraméter, akkor legyen az alapértelmezett a kettő 
@@ -73,13 +84,15 @@ def do_transpose(input_array: np.array)->np.array:
 # round_array()
 
 
-# In[ ]:
+# In[49]:
 
 
+def round_array(input_array : np.array) -> np.array:
+    return input_array.round(2)
+    
 
 
-
-# In[ ]:
+# In[36]:
 
 
 # Készíts egy olyan függvényt, ami a bementként kapott 0 és 1 ből álló tömben a 0 - False-ra, az 1 True-ra cserélni
@@ -88,13 +101,14 @@ def do_transpose(input_array: np.array)->np.array:
 # bool_array()
 
 
-# In[ ]:
+# In[55]:
 
 
+def bool_array(input_array : np.array) -> np.array:
+    return input_array.astype(dtype=bool)
 
 
-
-# In[ ]:
+# In[37]:
 
 
 # Készíts egy olyan függvényt, ami a bementként kapott 0 és 1 ből álló tömben a 1 - False-ra az 0 True-ra cserélni
@@ -103,13 +117,14 @@ def do_transpose(input_array: np.array)->np.array:
 # invert_bool_array()
 
 
-# In[ ]:
+# In[69]:
 
 
+def invert_bool_array(input_array : np.array) -> np.array:
+    return np.invert(input_array.astype(dtype=bool))
 
 
-
-# In[ ]:
+# In[38]:
 
 
 # Készíts egy olyan függvényt ami a paraméterként kapott array-t kilapítja
@@ -118,8 +133,9 @@ def do_transpose(input_array: np.array)->np.array:
 # flatten()
 
 
-# In[ ]:
+# In[73]:
 
 
-
+def flatten(input_array : np.array) -> np.array:
+    return input_array.flatten()
 
