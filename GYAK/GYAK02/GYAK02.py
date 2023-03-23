@@ -10,18 +10,18 @@ import numpy as np
 # In[ ]:
 
 
-#create_array((2,2))
-# a = set_one(create_array((2,2)))
-# b = do_transpose(a)
+create_array((2,2))
+a = set_one(create_array((2,2)))
+b = do_transpose(a)
 
-# a4 = np.array([0.1223, 0.1675])
-# round_array(a4)
-# a5 = np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])
-# bool_array(a5)
-# a6 = np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])
-# invert_bool_array(a6)
-# a7 = np.array([[1,2], [3,4]])
-# flatten(a7)
+a4 = np.array([0.1223, 0.1675])
+round_array(a4)
+a5 = np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])
+bool_array(a5)
+a6 = np.array([[1, 0, 0], [1, 1, 1],[0, 0, 0]])
+invert_bool_array(a6)
+a7 = np.array([[1,2], [3,4]])
+flatten(a7)
 
 
 # In[29]:
