@@ -139,13 +139,14 @@ Egy példa a kimenetre: fig
 return type: matplotlib.figure.Figure
 függvény neve: plot_population
 '''
-def plot_population(df: pd.core.frame.DataFrame):
+def plot_population(df: pd.DataFrame) -> plt.Figure:
     new_df = df.copy()
     fig, ax = plt.subplots()
-
+    
     ax.bar(new_df["country"], new_df["population"])
     ax.set_xlabel("Country")
-    ax.set_ylabel("Population")
+    ax.set_ylabel("Population (millions)")
+    ax.set_title("Population of Countries")
     return fig
     
     
@@ -172,13 +173,15 @@ return type: matplotlib.figure.Figure
 függvény neve: plot_area
 '''
 
-def plot_area(test_df):
+def plot_area(df: pd.DataFrame) -> plt.Figure:
     new_df = df.copy()
     fig, ax = plt.subplots()
-    ax.set_title("Area of Countries")
-    ax.pie(new_df["area"])
-    return fig
     
+    myValues = new_df["area"]
+    myLabels = new_df["country"]
+    ax.pie(myValues, labels = myLabels)
+    ax.set_title("Area of Countries")
+    return fig
     
 
 
