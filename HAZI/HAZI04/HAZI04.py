@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[66]:
+# In[151]:
 
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 
-# In[93]:
+# In[217]:
 
 
 '''
@@ -19,6 +20,13 @@ A függvényeken belül mindig készíts egy másolatot a bemenő df-ről, (new_
 #df = csv_to_df("StudentsPerformance")
 #df = pd.read_csv('StudentsPerformance.csv')
 #capitalize_columns(df)
+#math_passed_count(df)
+#did_pre_course(df)
+#average_scores(df)
+#pd.read_csv('StudentsPerformance.csv')
+#add_age(df)
+#female_top_score(df)
+#add_grade(df)
 
 
 # In[ ]:
@@ -67,11 +75,7 @@ def capitalize_columns(df: pd.DataFrame) -> pd.core.frame.DataFrame:
         else:
             cols.append(x.upper())
     new_df.columns = cols
-    return new_df
-
-
-        
-        
+    return new_df    
 
 
 # In[ ]:
@@ -88,13 +92,15 @@ függvény neve: math_passed_count
 '''
 
 
-# In[ ]:
+# In[102]:
 
 
+def math_passed_count(df: pd.DataFrame) -> int:
+    new_df = df.copy()
+    return np.count_nonzero(new_df['math score'] >= 50)
 
 
-
-# In[ ]:
+# In[132]:
 
 
 '''
@@ -105,6 +111,9 @@ Egy példa a kimenetre: df_did_pre_course
 return type: pandas.core.frame.DataFrame
 függvény neve: did_pre_course
 '''
+def did_pre_course(df: pd.DataFrame) -> pd.DataFrame:
+    new_df = df.copy()
+    return new_df[new_df['test preparation course'] == 'completed']
 
 
 # In[ ]:
@@ -113,7 +122,7 @@ függvény neve: did_pre_course
 
 
 
-# In[ ]:
+# In[146]:
 
 
 '''
@@ -125,6 +134,9 @@ Egy példa a kimenetre: df_average_scores
 return type: pandas.core.frame.DataFrame
 függvény neve: average_scores
 '''
+def average_scores(df: pd.DataFrame) -> pd.DataFrame:
+    new_df = df.copy()
+    return new_df.groupby("parental level of education").mean()
 
 
 # In[ ]:
@@ -133,7 +145,7 @@ függvény neve: average_scores
 
 
 
-# In[ ]:
+# In[164]:
 
 
 '''
@@ -145,6 +157,11 @@ Egy példa a kimenetre: df_data_with_age
 return type: pandas.core.frame.DataFrame
 függvény neve: add_age
 '''
+def add_age(df: pd.DataFrame) -> pd.DataFrame:
+    new_df = df.copy()
+    random.seed(42)
+    new_df['age'] = [random.randint(18, 67) for i in range(new_df.shape[0])]
+    return new_df
 
 
 # In[ ]:
@@ -153,7 +170,7 @@ függvény neve: add_age
 
 
 
-# In[ ]:
+# In[206]:
 
 
 '''
@@ -164,6 +181,11 @@ Egy példa a kimenetre: (99,99,99) #math score, reading score, writing score
 return type: tuple
 függvény neve: female_top_score
 '''
+def female_top_score(df: pd.DataFrame) -> tuple:
+    new_df = df.copy()
+    new_df = new_df[new_df['gender'] == 'female']
+    best = new_df[["math score", "reading score", "writing score"]].max()
+    return tuple(best)
 
 
 # In[ ]:
@@ -172,7 +194,7 @@ függvény neve: female_top_score
 
 
 
-# In[ ]:
+# In[216]:
 
 
 '''
@@ -190,6 +212,11 @@ Egy példa a kimenetre: df_data_with_grade
 return type: pandas.core.frame.DataFrame
 függvény neve: add_grade
 '''
+def add_grade(df: pd.DataFrame) -> pd.DataFrame :
+    new_df = df.copy()
+    percentages = (new_df['math score'] + new_df['reading score'] + new_df['writing score']) / 3
+    new_df['grade'] = pd.cut(percentages,bins=[0, 60, 70, 80, 90, 100],labels=["F", "D", "C", "B", "A"])
+    return new_df
 
 
 # In[ ]:
@@ -216,10 +243,18 @@ függvény neve: math_bar_plot
 '''
 
 
-# In[ ]:
+# In[239]:
 
 
-
+def math_bar_plot(df: pd.DataFrame) -> plt.Figure:
+    new_df = df.copy()
+    dfGroupedbyMathAvg = new_df.groupby('gender')['math score'].mean()
+    fig, ax = plt.subplots()
+    ax.bar(dfGroupedbyMathAvg.index, dfGroupedbyMathAvg.values)
+    ax.set_title("Average Math Score by Gender")
+    ax.set_xlabel('Gender')
+    ax.set_ylabel('Math Score')
+    return fig
 
 
 # In[ ]:
@@ -240,13 +275,20 @@ függvény neve: writing_hist
 '''
 
 
-# In[ ]:
+# In[246]:
 
 
+def writing_hist(df: pd.DataFrame) -> plt.Figure:
+    new_df = df.copy()
+    fig, ax = plt.subplots()
+    ax.set_title('Distribution of Writing Scores')
+    ax.set_xlabel('Writing Score')
+    ax.set_ylabel('Number of Students')
+    ax.hist(new_df['writing score'])
+    return fig
 
 
-
-# In[ ]:
+# In[251]:
 
 
 ''' 
@@ -262,6 +304,16 @@ Egy példa a kimenetre: fig
 return type: matplotlib.figure.Figure
 függvény neve: ethnicity_pie_chart
 '''
+
+def ethnicity_pie_chart(df: pd.DataFrame) -> plt.Figure:
+    new_df = df.copy()
+    fig, ax = plt.subplots()
+    ax.set_title("Proportion of Students by Race/Ethnicity")
+    grouped = new_df.groupby("race/ethnicity")["race/ethnicity"].count()
+    labels = grouped.index
+    values = grouped.values
+    ax.pie(values, labels = labels, autopct='%1.1f%%')
+    return fig
 
 
 # In[ ]:
