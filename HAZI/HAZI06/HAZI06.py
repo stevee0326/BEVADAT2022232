@@ -14,7 +14,7 @@
          16:00-19:59 -- evening  
          20:00-23:59 -- night  
          0:00-3:59 -- late_night  
-    - A késéeket jelöld az alábbiak szerint. Az új osztlop neve legyen 'delay'. A függvény neve legyen pedig 'convert_delay' és térjen vissza a df-el
+    - A késéseket jelöld az alábbiak szerint. Az új osztlop neve legyen 'delay'. A függvény neve legyen pedig 'convert_delay' és térjen vissza a df-el
          0 <= x 5  --> 0  
          5 <= x    --> 1  
     - Dobd el a felesleges oszlopokat 'train_id' 'scheduled_time' 'actual_time' 'delay_minutes'. A függvény neve legyen 'drop_unnecessary_columns' és térjen vissza a df-el
@@ -202,3 +202,20 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Accuracy: {accuracy:.4f}")
+
+# A min_samples_split és a max_depth paraméterek fontosak a modellezés során. 
+# Ha a paraméterek túl alacsonyak vagy túl magasak, akkor overfitting vagy underfitting léphet fel. 
+# A min_samples_split paramétert nagyobb, míg a max_deptht kisebb lépésekben kerültek változtatásra. 
+# Az eredmények azt mutatták, hogy a nagyobb max_depth-ek jobb accuracyt eredményeztek.
+
+#min_samples_split=2, max_depth=2  Accuracy: 0.7823
+#min_samples_split=10, max_depth=8 Accuracy: 0.7956
+#min_samples_split=30, max_depth=20 Accuracy: 0.7843
+#min_samples_split=40, max_depth=10 Accuracy: 0.801440
+#min_samples_split=80, max_depth=20 Accuracy: 0.792480
+#min_samples_split=80, max_depth=15 Accuracy: 0.797080
+#min_samples_split=80, max_depth=60 Accuracy: 0.792280
+#min_samples_split=100, max_depth=40 Accuracy: 0.7973100
+#min_samples_split=100, max_depth=20 Accuracy: 0.7974100
+#min_samples_split=100, max_depth=10 Accuracy: 0.8023100
+#min_samples_split=100, max_depth=8 Accuracy: 0.7969100
